@@ -1,32 +1,57 @@
-# hyper-v
-# 보안부팅 체크 해제 (설정할 경우 설치안됨)
-# 검사점 사용 해제 (자동백업 기능. 안사용할거)
+. hyper-v
+. 보안부팅 체크 해제. 설정할 경우 설치안됨
+. 검사점 사용 해제. 자동백업 기능. 안사용할거
+. 내부 네트워크로 설정. 외부 사용시 뭔가 설정 하나더 해줘야 할듯. 푸티 접속 못함
 
-# centos 용량 8기가로는 부족
-# ip a
-# ip addr
-
-# vi /etc/sysconfig/network-scripts//ifcfg-eth0
-# ONBOOT=no 를 yes로 변경
-sed 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts//ifcfg-eth0
-
-# 재부팅
-# shutdown -s 0 
-shutdown -r 0
+. centos 용량 8기가로는 오라클 설치 용량 부족. 메모리 1기가는 오라클이 부족
+. 하드용량 16기가
+. 메모리 용량 2기가
 
 $ sudo -s
 
-# 파일 다운. 리눅스 서버에선 불가. 사이트에 로그인후 받아야해서;;
-# centos6
+# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+. ONBOOT=no 를 yes로 변경
+# sed 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts//ifcfg-eth0
+
+# 재부팅
+# shutdown 0 
+shutdown -r 0
+
+. 여기서부턴 푸티 접속되서 푸티로 처리하는게 편함
+# ip addr
+ip a
+
+. https://docs.oracle.com/en/database/oracle/oracle-database/18/xeinl/procedure-installing-oracle-database-xe.html
+
+. centos6
 # curl -o oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL6/latest/x86_64/getPackage/oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm
 # yum -y localinstall oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm
 
-# centos7
+. centos7
 # curl -o oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm
 # yum -y localinstall oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm
 
-# 윈도우에서 cmd 창
-> sftp root@192.168.86.150
+. rpm 파일 다운 약2기가. 리눅스 서버에선 불가. 사이트에 로그인후 받아야해서;;
+. https://www.oracle.com/database/technologies/xe-downloads.html
+
+. 윈도우에서 cmd 창
+. SFTP 접속
+> sftp root@192.168.86.154
+. 위에서 받았던 파일 업로드
 > put oracle-database-xe-18c-1.0-1.x86_64.rpm
 
 # yum -y localinstall oracle-database-xe-18c-1.0-1.x86_64.rpm
+
+
+# rm oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm
+# rm oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm
+# rm oracle-database-xe-18c-1.0-1.x86_64.rpm
+
+. https://docs.oracle.com/en/database/oracle/oracle-database/18/xeinl/performing-silent-installation.html
+
+less /etc/sysconfig/oracle-xe-18c.conf
+
+# /etc/init.d/oracle-xe-18c configure
+# 비밀번호 설정
+# 8자, 대문자1, 소문자1, 숫자1
+# Holy0000
