@@ -13,7 +13,7 @@ $ sudo -s
 . ONBOOT=no 를 yes로 변경
 # sed 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts//ifcfg-eth0
 
-# 재부팅
+. 재부팅
 # shutdown 0 
 shutdown -r 0
 
@@ -51,30 +51,30 @@ ip a
 
 less /etc/sysconfig/oracle-xe-18c.conf
 
-# 설치. 근데 환경변수는 대체..?
+. 설치. 근데 환경변수는 대체..?
 # /etc/init.d/oracle-xe-18c configure
-# 비밀번호 설정
-# 8자, 대문자1, 소문자1, 숫자1
-# Holy0000
+. 비밀번호 설정
+. 8자, 대문자1, 소문자1, 숫자1
+. Holy0000
 
-# 참고로 삭제
-/etc/init.d/oracle-xe-18c delete
-# Usage: /etc/init.d/oracle-xe-18c {start|stop|restart|configure|delete}
-# Usage: /etc/init.d/oracle-database-preinstall-18c-firstboot {start|stop}
+. 참고로 삭제
+# /etc/init.d/oracle-xe-18c delete
+. Usage: /etc/init.d/oracle-xe-18c {start|stop|restart|configure|delete}
+. Usage: /etc/init.d/oracle-database-preinstall-18c-firstboot {start|stop}
 
-# 6
+. 6
 # /etc/init.d/oracle-xe-18c start
 # /etc/init.d/oracle-xe-18c stop
 # /etc/init.d/oracle-xe-18c restart
 
-# 7
+. 7
 # systemctl start oracle-xe-18c
 # systemctl stop oracle-xe-18c
 # systemctl restart oracle-xe-18c
 
-# 계정 처리
-su - oracle
-vi .bash_profile
+. 계정 처리
+# su - oracle
+$ vi .bash_profile
 export ORACLE_HOME=/opt/oracle/product/18c/dbhomeXE
 export TNS_ADMIN=$ORACLE_HOME/network/admin
 # 인스턴트명?
@@ -82,24 +82,26 @@ export ORACLE_SID=XE
 # sql 출력시 한글 깨짐 방지
 export NLS_LANG=KOREAN_KOREA.AL32UTF8 
 
-logout
-su - oracle
+$ logout
+# su - oracle
 
-# 접속
-opt/oracle/product/18c/dbhomeXE/bin/sqlplus '/as sysdba'
+. 접속
+$ /opt/oracle/product/18c/dbhomeXE/bin/sqlplus '/as sysdba'
+exit
+
+/opt/oracle/product/18c/dbhomeXE/bin/lsnrctl status
+
+. 방화벽 목록추가
+# firewall-cmd --permanent --add-port=1521/tcp
+# systemctl restart firewalld
+
+. 출처: https://hwoarang757.tistory.com/entry/CentOS-7-Oracle-18c-Express-설치-진행 [허접한 실력에 형편없는 개발자의 블로그]
 
 # --------------------------------------------------------------------
 
 /opt/oracle/cfgtoollogs/dbca/XE/XE.log
 
-
-
-
-
-
-
-
-# 로그 위치
+# 로그 위치?
 /opt/oracle/cfgtoollogs/dbca/
 
 export ORACLE_SID=EDU18
@@ -117,7 +119,7 @@ find / -name deinstall
 
 find / -name XE
 
-/opt/oracle/product/18c/dbhomeXE/bin/lsnrctl status
+
 /opt/oracle/product/18c/dbhomeXE/bin/sqlplus system@"dbhost.example/XE"
 /opt/oracle/product/18c/dbhomeXE/network/admin/listener.ora
 /opt/oracle/product/18c/dbhomeXE/network/admin/tnsnames.ora
