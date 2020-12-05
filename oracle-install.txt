@@ -1,0 +1,32 @@
+# hyper-v
+# 보안부팅 체크 해제 (설정할 경우 설치안됨)
+# 검사점 사용 해제 (자동백업 기능. 안사용할거)
+
+# centos 용량 8기가로는 부족
+# ip a
+# ip addr
+
+# vi /etc/sysconfig/network-scripts//ifcfg-eth0
+# ONBOOT=no 를 yes로 변경
+sed 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts//ifcfg-eth0
+
+# 재부팅
+# shutdown -s 0 
+shutdown -r 0
+
+$ sudo -s
+
+# 파일 다운. 리눅스 서버에선 불가. 사이트에 로그인후 받아야해서;;
+# centos6
+# curl -o oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL6/latest/x86_64/getPackage/oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm
+# yum -y localinstall oracle-database-preinstall-18c-1.0-1.el6.x86_64.rpm
+
+# centos7
+# curl -o oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm https://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm
+# yum -y localinstall oracle-database-preinstall-18c-1.0-1.el7.x86_64.rpm
+
+# 윈도우에서 cmd 창
+> sftp root@192.168.86.150
+> put oracle-database-xe-18c-1.0-1.x86_64.rpm
+
+# yum -y localinstall oracle-database-xe-18c-1.0-1.x86_64.rpm
